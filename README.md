@@ -4,7 +4,7 @@
 [![Documentation Status](https://readthedocs.org/projects/city-scrapers-core/badge/?version=latest)](https://city-scrapers-core.readthedocs.io/en/latest/?badge=latest)
 [![pypi](https://img.shields.io/pypi/v/city-scrapers-core)](https://pypi.org/project/city-scrapers-core/)
 
-Core functionality for creating public meetings web scrapers for the [City Scrapers](https://cityscrapers.org/) project.
+Core functionality for creating public meetings web scrapers for the [City Scrapers](https://city-scrapers.org/) project.
 
 See the [documentation](https://city-scrapers-core.readthedocs.io/) for more details.
 

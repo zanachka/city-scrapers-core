@@ -53,7 +53,7 @@ class DiffPipeline:
             crawler.spider._previous_map = {}
             for result in crawler.spider._previous_results:
                 extras_dict = result.get("extras") or result.get("extra") or {}
-                previous_id = extras_dict.get("cityscrapers.org/id")
+                previous_id = extras_dict.get("cityscrapers/id")
                 crawler.spider._previous_map[previous_id] = result["_id"]
         crawler.spider._scraped_ids = set()
         crawler.signals.connect(pipeline.spider_idle, signal=signals.spider_idle)
@@ -84,7 +84,7 @@ class DiffPipeline:
             return item
         if self.output_format == "ocd":
             extras_dict = item.get("extras") or item.get("extra") or {}
-            scraper_id = extras_dict.get("cityscrapers.org/id", "")
+            scraper_id = extras_dict.get("cityscrapers/id", "")
 
         # Drop items that are already included or are in the past
         dt_str = datetime.now().isoformat()[:19]

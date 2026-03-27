@@ -52,10 +52,10 @@ class OpenCivicDataPipeline:
                 }
             ],
             "extras": {
-                "cityscrapers.org/id": item["id"],
-                "cityscrapers.org/agency": spider.agency,
-                "cityscrapers.org/time_notes": item.get("time_notes", ""),
-                "cityscrapers.org/address": item["location"]["address"],
+                "cityscrapers/id": item["id"],
+                "cityscrapers/agency": spider.agency,
+                "cityscrapers/time_notes": item.get("time_notes", ""),
+                "cityscrapers/address": item["location"]["address"],
             },
         }
 

@@ -1,4 +1,4 @@
-NAMESPACE = "cityscrapers.org"
+NAMESPACE = "cityscrapers"
 
 ADVISORY_COMMITTEE = "Advisory Committee"
 BOARD = "Board"
