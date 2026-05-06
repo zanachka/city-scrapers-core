@@ -95,12 +95,9 @@ def extract_spiders(source: str) -> list[dict]:
 def find_program_for_agency(agency: str, backlog_table) -> str | None:
     """Look up `agency` in the Backlog table and return the linked Program record ID.
 
-    The Backlog table's Program field is a *lookup* (not a link), so it returns
-    the program's name as a string rather than a record ID. To get a record ID
-    suitable for writing to a 'link to another record' field on the Slugs table,
-    we have to take that name and look it up in the Programs table.
-
-    Returns the Programs record ID, or None if the agency isn't in Backlog or
+    The Backlog table's Program field is a *lookup*, it returns
+    the linked program's record ID. This function Returns the
+    Programs record ID, or None if the agency isn't in Backlog or
     the looked-up Program name doesn't resolve to a Programs record.
     """
     backlog_records = backlog_table.all(
@@ -121,7 +118,7 @@ def find_program_for_agency(agency: str, backlog_table) -> str | None:
 
 
 def sync_to_airtable(
-    spiders: list[dict], table, program_record_id: str | None = None
+    spiders: list[dict], table, table_records, program_record_id: str | None = None
 ) -> dict:
     """
     Sync spiders to Airtable, keyed on agency name.
@@ -149,7 +146,7 @@ def sync_to_airtable(
     Returns a summary: {'created': [...], 'updated': [...], 'skipped': [...]}.
     """
     existing: dict[str, tuple[str, str]] = {}
-    for row in table.all(fields=[SLUG_FIELD, AGENCY_FIELD]):
+    for row in table_records:
         agency = row["fields"].get(AGENCY_FIELD)
         if agency:
             existing[agency] = (row["id"], row["fields"].get(SLUG_FIELD, ""))
@@ -216,6 +213,8 @@ def main():
     slugs_table = api.table(base_id, slugs_table)
     backlog_table = api.table(base_id, backlog_table)
 
+    slugs_table_records = slugs_table.all(fields=[SLUG_FIELD, AGENCY_FIELD])
+
     # Process each file separately so all spiders from one factory file
     # share the same Program (looked up via the file's first spider agency).
     overall = {"created": [], "updated": [], "skipped": []}
@@ -240,7 +239,7 @@ def main():
         else:
             print(f"[INFO] No Program match for '{first_agency}'")
 
-        result = sync_to_airtable(spiders, slugs_table, program_id)
+        result = sync_to_airtable(spiders, slugs_table, slugs_table_records, program_id)
         for key in overall:
             overall[key].extend(result[key])
 
