@@ -58,8 +58,8 @@ jobs:
 
       - name: Sync spiders to Airtable
         env:
-          AIRTABLE_PAT: ${{ secrets.AIRTABLE_PAT }}
-          AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
-          AIRTABLE_TABLE: ${{ secrets.SLUGS_TABLE_ID }}
-          AIRTABLE_BACKLOG_TABLE: ${{ secrets.BACKLOG_TABLE_ID }}
-        run: python .city-scrapers-core/.github/scripts/sync_spiders.py ${{ steps.changed.outputs.all_changed_files }}
+          CS_AIRTABLE_PAT: ${{ secrets.CS_AIRTABLE_PAT }}
+          CS_AIRTABLE_BASE_ID: ${{ secrets.CS_AIRTABLE_BASE_ID }}
+          CS_SLUGS_TABLE_ID: ${{ secrets.CS_SLUGS_TABLE_ID }}
+          CS_BACKLOG_TABLE_ID: ${{ secrets.CS_BACKLOG_TABLE_ID }}
+        run: python .city-scrapers-core/.github/scripts/sync_airtable.py ${{ steps.changed.outputs.all_changed_files }}

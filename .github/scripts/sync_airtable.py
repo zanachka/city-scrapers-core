@@ -195,10 +195,10 @@ def sync_to_airtable(
 
 def main():
     try:
-        pat = config("AIRTABLE_PAT")
-        base_id = config("AIRTABLE_BASE_ID")
-        slugs_table = config("SLUGS_TABLE_ID")
-        backlog_table = config("BACKLOG_TABLE_ID")
+        pat = config("CS_AIRTABLE_PAT")
+        base_id = config("CS_AIRTABLE_BASE_ID")
+        slugs_table = config("CS_SLUGS_TABLE_ID")
+        backlog_table = config("CS_BACKLOG_TABLE_ID")
     except UndefinedValueError as e:
         sys.exit(f"[ERROR] Missing env var: {e}")
 
