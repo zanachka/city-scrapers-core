@@ -13,14 +13,17 @@ on:
         required: false
         type: string
         default: 'main'
+      CS_AIRTABLE_BASE_ID:
+        required: true
+        type: string
+      CS_SLUGS_TABLE_ID:
+        required: true
+        type: string
+      CS_BACKLOG_TABLE_ID:
+        required: true
+        type: string
     secrets:
-      AIRTABLE_PAT:
-        required: true
-      AIRTABLE_BASE_ID:
-        required: true
-      SLUGS_TABLE_ID:
-        required: true
-      BACKLOG_TABLE_ID:
+      CS_AIRTABLE_PAT:
         required: true
 
 jobs:
@@ -59,7 +62,7 @@ jobs:
       - name: Sync spiders to Airtable
         env:
           CS_AIRTABLE_PAT: ${{ secrets.CS_AIRTABLE_PAT }}
-          CS_AIRTABLE_BASE_ID: ${{ secrets.CS_AIRTABLE_BASE_ID }}
-          CS_SLUGS_TABLE_ID: ${{ secrets.CS_SLUGS_TABLE_ID }}
-          CS_BACKLOG_TABLE_ID: ${{ secrets.CS_BACKLOG_TABLE_ID }}
+          CS_AIRTABLE_BASE_ID: ${{ inputs.CS_AIRTABLE_BASE_ID }}
+          CS_SLUGS_TABLE_ID: ${{ inputs.CS_SLUGS_TABLE_ID }}
+          CS_BACKLOG_TABLE_ID: ${{ inputs.CS_BACKLOG_TABLE_ID }}
         run: python .city-scrapers-core/.github/scripts/sync_airtable.py ${{ steps.changed.outputs.all_changed_files }}
